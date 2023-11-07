@@ -39,7 +39,7 @@ export default function ListPlayList(props: IProps) {
         url:`/api/revalidate`,
         method:'POST',
         queryParams:{
-          secret:'abcdef',
+          secret:'justArandomString',
           tag:'play-list-by-user'
         }
       })

@@ -93,7 +93,7 @@ const AddPlaylistTrack = (props: IProps) => {
                     method: "POST",
                     queryParams: {
                         tag: "playlist-by-user",
-                        secret: "abcdef"
+                        secret: "justArandomString"
                     }
                 })
                 handleClose("", "");

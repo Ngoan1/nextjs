@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest){
   const secret = request.nextUrl.searchParams.get('secret')
   const tag = request.nextUrl.searchParams.get('tag')
-  if(secret !== process.env.PASS_WORD_SECRET){
+  if(secret !== process.env.REVALIDATE_SECRET){
     return NextResponse.json({message:'sai pass nha '},{status:401})
   }
   if(!tag){

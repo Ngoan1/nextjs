@@ -55,7 +55,7 @@ const LikeTrack = (props: IProps) => {
       url:'http://localhost:3000/api/revalidate',
       method:'POST',
       queryParams:{
-        secret:'abcdef',
+        secret:'justArandomString',
         tag:'track-by-id'
       }
     })

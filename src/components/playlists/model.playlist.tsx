@@ -52,7 +52,7 @@ const ModalPlayList = () => {
         url:`/api/revalidate`,
         method:'POST',
         queryParams:{
-          secret:'abcdef',
+          secret:'justArandomString',
           tag:'play-list-by-user'
         }
       })

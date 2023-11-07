@@ -57,7 +57,7 @@ const NewPlaylist = (props: any) => {
                 method: "POST",
                 queryParams: {
                     tag: "playlist-by-user",
-                    secret: "abcdef"
+                    secret: "justArandomString"
                 }
             })
             router.refresh();

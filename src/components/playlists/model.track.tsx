@@ -137,7 +137,7 @@ const ModalTrack = (props: IProps) => {
                 {tracks?.map((item) => (
                   <MenuItem
                     key={item._id}
-                    value={`${item._id}`}
+                    value={item.title}
                     style={getStyles(item.title, listTrack, theme)}
                   >
                     {item.title}
