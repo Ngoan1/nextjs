@@ -3,8 +3,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import ModalPlayList from "./model.playlist";
-import ModalTrack from "./model.track";
+import ModalPlayList from "./modal.playlist";
+import ModalTrack from "./modal.track";
 interface IProps {
   playlist: IPlaylist[] | null;
   tracks: ITrackTop[] | null;
@@ -27,7 +27,7 @@ const NewPlayList = (props: IProps) => {
           </Typography>
         </Box>
         <Box sx={{ gap: 2, display: "flex" }}>
-          <ModalPlayList />
+          <ModalPlayList/>
           <ModalTrack tracks={tracks} playlist={playlist} />
         </Box>
       </Box>

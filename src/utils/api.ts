@@ -88,6 +88,8 @@ export const AvatarUser = (type: string) => {
 export const SlugURL = (type: string) => {
   if (type)
     return slugify(type, {
-      locale: "vi", // language code of the locale to use
+      lower: true,      // convert to lower case, defaults to `false`
+      locale: 'vi',      // language code of the locale to use
+        
     });
 };

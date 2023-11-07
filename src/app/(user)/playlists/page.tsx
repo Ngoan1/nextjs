@@ -43,17 +43,17 @@ const PlayListPage = async () => {
       <Box sx={{ background: "#ccc", mt: 5 }}>
         <Container>
           <NewPlayList
-          tracks={res1?.data?.result ?? null}
+            tracks={res1?.data?.result ?? null}
             playlist={res?.data?.result ?? null}
           />
           <Divider
-          variant="middle"
+            variant="middle"
             sx={{
               my: 3,
             }}
           />
           <ListPlayList
-        //   tracks={res1?.data?.result ?? null}
+              tracks={res1?.data?.result ?? null}
 
             playlist={res?.data?.result ?? null}
           />
@@ -112,7 +112,6 @@ export default PlayListPage;
 
 //     const playlists = res?.data?.result ?? [];
 //     const tracks = res1?.data?.result ?? [];
-
 
 //     return (
 //         <Container sx={{ mt: 3, p: 3, background: "#f3f6f9", borderRadius: "3px" }}>

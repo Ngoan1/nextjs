@@ -5,9 +5,16 @@ const ProfilePage = async ({ params }: { params: { slug: string } }) => {
 
   const idUser = params.slug;
   const res = await sendRequest({
-    url: "http://localhost:8000/api/v1/tracks/users?current=1&pageSize=10",
+    url: "http://localhost:8000/api/v1/tracks/users",
     method: "POST",
     body: { id: idUser },
+    queryParams:{
+      current:1,
+      pageSize:100
+    },
+    nextOption: { next: { tags: ["profile-by-user"] } },
+
+    
   });
   // console.log(res?.data?.result,'check ress user')
   //@ts-ignore

@@ -15,6 +15,7 @@ import { Container } from "@mui/material";
 import { Grid } from "@mui/material";
 import { useTrackContext } from "@/lib/context/track.contect";
 import Link from "next/link";
+import { SlugURL } from "@/utils/api";
 
 const ProfileApp = (props: any) => {
   const { dataUser } = props;
@@ -34,7 +35,7 @@ const ProfileApp = (props: any) => {
               <Card sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <CardContent sx={{ flex: "1 0 auto" }}>
-                   <Link href={`/track/${item._id}?audio=${item.trackUrl}&id=${item._id}`}>
+                   <Link href={`/track/${SlugURL(item.title)}-${item._id}.html?audio=${item.trackUrl}`}>
                    <Typography component="div" variant="h5">
                       {item.title}
                     </Typography>

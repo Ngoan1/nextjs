@@ -17,6 +17,7 @@ import Box from "@mui/material/Box";
 import { sendRequest } from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { useToast } from "@/lib/toast";
+import { useRouter } from "next/navigation";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -55,11 +56,14 @@ const ModalTrack = (props: IProps) => {
 
   const handleCloseAddTrack = () => {
     setOpenAddTrack(false);
+    setListTrack([])
+    setTrack(null)
   };
   const handleChangeTrack = (event: any) => {
     setTrack(event.target.value);
   };
   const theme = useTheme();
+  const router =useRouter()
 
   const handleChangeValueTrack = (
     event: SelectChangeEvent<typeof listTrack>
@@ -72,14 +76,18 @@ const ModalTrack = (props: IProps) => {
       typeof value === "string" ? value.split(",") : value
     );
   };
+ 
   const handleSubmit = async () => {
-    // console.log('check >>>',personName,track)
+    // console.log("check track", listTrack);
+    const finalListCheck=listTrack.map(item=>item.split('###')?.[0])
+    // console.log('check ket qua cuoi cung',finalListCheck)
+
     const res = await sendRequest<IBackendRes<IModelPaginate<IPlaylist>>>({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/playlists`,
       method: "PATCH",
       body: {
         title: track?.title,
-        tracks: listTrack,
+        tracks: finalListCheck,
         isPublic: track?.isPublic,
         id: track?._id,
       },
@@ -87,9 +95,19 @@ const ModalTrack = (props: IProps) => {
         Authorization: `Bearer ${session?.access_token}`,
       },
     });
-    console.log("check track", listTrack);
     if (res?.data) {
+      await sendRequest<IBackendRes<IModelPaginate<IPlaylist>>>({
+        url:`/api/revalidate`,
+        method:'POST',
+        body:{
+          secret:'justArandomString',
+          tag:'play-list-by-user'
+        }
+      })
+      router.refresh();
+
       toast.success(res?.message);
+      handleCloseAddTrack()
     } else {
       toast.error(res?.message);
     }
@@ -128,7 +146,7 @@ const ModalTrack = (props: IProps) => {
                 renderValue={(selected) => (
                   <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {selected.map((value) => (
-                      <Chip key={value} label={value} />
+                      <Chip key={value} label={value.split('###')?.[1]} />
                     ))}
                   </Box>
                 )}
@@ -137,7 +155,7 @@ const ModalTrack = (props: IProps) => {
                 {tracks?.map((item) => (
                   <MenuItem
                     key={item._id}
-                    value={item.title}
+                    value={`${item._id}###${item.title}`}
                     style={getStyles(item.title, listTrack, theme)}
                   >
                     {item.title}

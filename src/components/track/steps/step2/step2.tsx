@@ -146,6 +146,14 @@ const Step2 = (props: IProps) => {
   
       })
       if(res.data){
+        await sendRequest<IBackendRes<ITrackTop[]>>({
+          url:`/api/revalidate`,
+          method:'POST',
+          body:{
+            secret:'justArandomString',
+            tag:'profile-by-user'
+          }
+        })
       toast.success(res.message)
       setValue(0)
 

@@ -19,7 +19,6 @@ import { Container } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Avatar from "@mui/material/Avatar/Avatar";
 import { signOut } from "next-auth/react";
 import { AvatarUser } from "@/utils/api";
 import Image from "next/image";
@@ -213,6 +212,14 @@ export default function AppHeader() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onKeyDown={(e:any)=>{
+                  
+                  if(e.key==='Enter'){
+                    if(e?.target?.value){
+                      router.push(`/search?q=${e?.target?.value}`)
+                    }
+                  }
+                }}
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
