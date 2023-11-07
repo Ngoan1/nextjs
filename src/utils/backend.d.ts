@@ -48,4 +48,49 @@ declare global {
     };
     result: T[];
   }
+  interface ITrackVjp extends ITrackTop {
+    isPlaying: boolean;
+  }
+  interface ITrackComment {
+    _id: string;
+    content: string;
+    moment: number;
+    user: {
+      _id: string;
+      email: string;
+      name: string;
+      role: string;
+      type: string;
+    };
+    track: string;
+    isDeleted: boolean;
+    __v: 0;
+    createdAt: string;
+    updatedAt: string;
+  }
+  interface ITrackLike{
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    imgUrl: string;
+    trackUrl: string;
+    countLike: number;
+    countPlay: number;
+  }
+  interface ContextTrack {
+    currentTrack: ITrackVjp;
+    setCurrentTrack: (value: ITrackVjp) => void;
+  }
+  interface IPlaylist{
+    "_id": string,
+    "title": string,
+    "isPublic": boolean,
+    "user": string,
+    "tracks": [],
+    "isDeleted": boolean,
+    "createdAt": string,
+    "updatedAt": string,
+    "__v": number
+  }
 }

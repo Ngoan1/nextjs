@@ -20,8 +20,10 @@ import { signIn } from "next-auth/react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/lib/toast";
 
 const SigninForm = (props: any) => {
+  const toast =useToast()
   const [username, setUserName] = useState<string>("");
   const [password, setPassWord] = useState<string>("");
   const [showPassword, setShowPassWord] = useState<boolean>(false);
@@ -51,10 +53,12 @@ const SigninForm = (props: any) => {
       redirect: false,
     });
     if (!res?.error) {
+      //@ts-ignore
+
       router.push("/");
     }
     else{
-      alert(res?.error)
+      toast.error(res?.error)
     }
 
   };

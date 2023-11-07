@@ -1,6 +1,13 @@
 import MainSlider from "@/components/main/main.slider";
 import { sendRequest } from "@/utils/api";
 import Container from "@mui/material/Container/Container";
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Trang Chủ',
+  description: 'Đây là trang chủ',
+}
+ 
 
 
 export default async function HomePage() {

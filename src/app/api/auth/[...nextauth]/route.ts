@@ -7,7 +7,7 @@ import { sendRequest } from "@/utils/api";
 import { JWT } from "next-auth/jwt";
 export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
-  secret: process.env.NO_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")

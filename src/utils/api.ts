@@ -1,4 +1,5 @@
 import queryString from "query-string";
+import slugify from "slugify";
 
 export const sendRequest = async <T>(props: IRequest) => {
   let {
@@ -78,4 +79,15 @@ export const sendRequestFile = async <T>(props: IRequest) => {
       });
     }
   });
+};
+export const AvatarUser = (type: string) => {
+  if (type === "GITHUB") return "/user/default-github.png";
+  if (type === "GOOGLE") return "/user/default-google.png";
+  return "/user/default-user.png";
+};
+export const SlugURL = (type: string) => {
+  if (type)
+    return slugify(type, {
+      locale: "vi", // language code of the locale to use
+    });
 };

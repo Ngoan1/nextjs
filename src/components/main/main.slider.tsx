@@ -7,6 +7,8 @@ import { Box, Button, Divider } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
+import { SlugURL } from "@/utils/api";
+import Image from "next/image";
 interface IProps {
   data: ITrackTop[];
   title: string;
@@ -58,6 +60,32 @@ const MainSlider = (props: IProps) => {
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   return (
     <Box
@@ -83,10 +111,25 @@ const MainSlider = (props: IProps) => {
         {data.map((item) => {
           return (
             <div className="tracks" key={item._id}>
-              <img
+              {/* <img
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/${item.imgUrl}`}
+              /> */}
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/${item.imgUrl}`}
+                alt="Picture of the author"
+                width={500}
+                height={500}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover', // cover, contain, none
+                }}
               />
-              <Link href={`/track/${item._id}?audio=${item.trackUrl}`}>
+              <Link
+                href={`/track/${SlugURL(item.title)}-${item?._id}.html?audio=${
+                  item.trackUrl
+                }`}
+              >
                 <h4>{item.title}</h4>
               </Link>
               <h5>{item.description}</h5>

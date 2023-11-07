@@ -1,7 +1,8 @@
-import AppFooter from "@/components/Footer/app.footer";
-import AppHeader from "@/components/Header/app.header";
 import ThemeRegistry from "@/components/theme-registry/theme.registry";
+import { TrackContextProvider } from "@/lib/context/track.contect";
 import NextAuthProvider from "@/lib/next.auth.provider";
+import NProgressBar from "@/lib/progess/progess";
+import { ToastProvider } from "@/lib/toast";
 
 export default function RootLayout({
   children,
@@ -12,9 +13,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ThemeRegistry>
-          <NextAuthProvider>
-            {children}
-          </NextAuthProvider>
+          <NProgressBar>
+            <NextAuthProvider>
+              <ToastProvider>
+                <TrackContextProvider>{children}</TrackContextProvider>
+              </ToastProvider>
+            </NextAuthProvider>
+          </NProgressBar>
         </ThemeRegistry>
       </body>
     </html>

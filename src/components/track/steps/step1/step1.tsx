@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { useToast } from "@/lib/toast";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -26,9 +27,9 @@ interface IProps {
     uploadedTrackName: string;
   };
   setUpLoadTrack: any;
-
 }
 const Step1 = (props: IProps) => {
+  const toast=useToast()
   const { setValue, uploadTrack, setUpLoadTrack } = props;
   const { data: session } = useSession();
   const onDrop = useCallback(
@@ -63,9 +64,11 @@ const Step1 = (props: IProps) => {
                 target_type: "tracks",
                 delay: 3000,
               },
-              onUploadProgress: progressEvent => {
-                let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total!);
-                
+              onUploadProgress: (progressEvent) => {
+                let percentCompleted = Math.floor(
+                  (progressEvent.loaded * 100) / progressEvent.total!
+                );
+
                 setUpLoadTrack({
                   ...uploadTrack,
                   fileName: acceptedFiles[0].name,
@@ -76,26 +79,27 @@ const Step1 = (props: IProps) => {
           );
           // console.log("check name file", res.data.data.fileName);
           // console.log("check uploadedTrackName", acceptedFiles[0].name);
-          setUpLoadTrack({
-            ...uploadTrack,
+          setUpLoadTrack((prevState: any) => ({
+            ...prevState,
             uploadedTrackName: res.data.data.fileName,
-
-          });
+          }));
           // console.log('check upload1',uploadTrack)
-
         } catch (error) {
-          console.log(error, "erorr ne");
+
+          // console.log(error, "erorr ne");
+          //@ts-ignore
+          toast.error(error)
         }
       }
     },
-    
+
     [session]
   );
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      "video/mp4": [".mp4", ".MP4", ".mp3"],
+      'video/mp4': [".mp3", ".m4a", ".wav"],
     },
   });
 
